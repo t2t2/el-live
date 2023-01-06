@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Eesti Laul Livesubs</title>
+
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:site" content="@nytimesbits" />
+	<meta name="twitter:creator" content="@nickbilton" />
+	<meta property="og:url" content="http://bits.blogs.nytimes.com/2011/12/08/a-twitter-for-my-sister/" />
+	<meta property="og:title" content="Eesti Laul Livesubs" />
+	<meta property="og:description" content="Eesti Laul livestream + livesubs in one page" />
+
+	<style>
+		html, body {
+			margin: 0;
+			height: 100%;
+		}
+		#container {
+			display: flex;
+			flex-direction: column;
+			height: 100vh;
+		}
+		#stream-embed {
+			aspect-ratio: 16 / 9;
+		}
+		#subs-embed {
+			flex: 1 0 auto;
+			display: flex;
+			overflow: hidden;
+		}
+		.off-canvas {
+			/* Try to hide reddit cookie banner by making the embed bigger than shown */
+			margin-bottom: -350px;
+			width: 100%;
+		}
+		.embed {
+			height: 100%;
+			width: 100%;
+			display: block;
+		}
+		@media (min-aspect-ratio: 16 / 14) {
+			#container {
+				flex-direction: row;
+			}
+			#stream-embed {
+				flex: 1 1 177vh;
+				aspect-ratio: auto;
+				max-width: 177vh;
+			}
+			#subs-embed {
+				min-width: 32rem;
+				flex: 1 0 1px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<div id="stream-embed">
+			<iframe class="embed" src="https://services.err.ee/live/video/etv" frameborder="0"></iframe>
+			<!--
+				Kui keegi err meeskonnast peaks siin olema juhuslikult uurimas,
+				1) Krt seda live embed urli on raske leida, lõpuks pidi üldse arvama
+				2) Millal 1080p50? (720p50 oleks juba okei komrpomiss, see on märgatav vahe)
+			-->
+		</div>
+		<div id="subs-embed">
+			<div class="off-canvas">
+				<iframe class="embed" src="https://www.redditmedia.com/live/1aa36gjgpobks/embed" frameborder="0"></iframe>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
