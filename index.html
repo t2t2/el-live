@@ -21,8 +21,39 @@
 			flex-direction: column;
 			height: 100vh;
 		}
+		#player {
+			display: flex;
+			flex-direction: column;
+			background-color: #000000;
+		}
 		#stream-embed {
 			aspect-ratio: 16 / 9;
+		}
+		#stream-selector {
+			background-color: #000000;
+			color: #cccccc;
+			padding: 0.5rem;
+			display: flex;
+			flex-wrap: wrap;
+		}
+		#stream-selector > * {
+			margin: 0;
+			margin-right: 0.5rem;
+			height: 1.5rem;
+			line-height: 1.5rem;
+		}
+		#stream-selector > *:last-child {
+			margin-right: 0;
+		}
+		.stream-link {
+			color: #ffffff;
+			text-decoration: none;
+		}
+		.stream-link:hover {
+			text-decoration: underline;
+		}
+		.stream-link.is-active {
+			color: #028aea;
 		}
 		#subs-embed {
 			flex: 1 0 auto;
@@ -43,9 +74,8 @@
 			#container {
 				flex-direction: row;
 			}
-			#stream-embed {
+			#player {
 				flex: 1 1 177vh;
-				aspect-ratio: auto;
 				max-width: 177vh;
 			}
 			#subs-embed {
@@ -57,13 +87,24 @@
 </head>
 <body>
 	<div id="container">
-		<div id="stream-embed">
-			<iframe class="embed" src="https://services.err.ee/live/video/etv" frameborder="0" allowfullscreen></iframe>
-			<!--
-				Kui keegi err meeskonnast peaks siin olema juhuslikult uurimas,
-				1) Krt seda live embed urli on raske leida, lõpuks pidi üldse arvama
-				2) Millal 1080p50? (720p50 oleks juba okei komrpomiss, see on märgatav vahe)
-			-->
+		<div id="player">
+			<div id="stream-embed">
+				<iframe id="stream-embed-iframe" name="stream-embed-iframe" class="embed" src="https://services.err.ee/live/video/etv" frameborder="0" allow="fullscreen"></iframe>
+				<!--
+					Kui keegi err meeskonnast peaks siin olema juhuslikult uurimas,
+					1) Krt seda live embed urli on raske leida, lõpuks pidi üldse arvama
+					2) Millal 1080p50? (720p50 oleks juba okei komrpomiss, see on märgatav vahe)
+				-->
+			</div>
+			<div id="stream-selector">
+				<p>Select stream:</p>
+				<a class="stream-link is-active" href="https://services.err.ee/live/video/etv" target="stream-embed-iframe" title="In Estonian">ETV (🇪🇪)</a>
+				<a class="stream-link" href="https://services.err.ee/live/video/etv2" target="stream-embed-iframe" title="In Estonian Sign Language">ETV2 (🧏)</a>
+				<a class="stream-link" href="https://services.err.ee/live/video/etvpluss" target="stream-embed-iframe" title="In Russian">ETV+ (🇷🇺)</a>
+				<a class="stream-link" href="https://services.err.ee/live/video/eri5" target="stream-embed-iframe" title="Behind the stage show during news break">Jupiter (🇪🇪✨)</a>
+				<div style="flex: 1"></div>
+				<p>If video gets replaced by image hit pause + play</p>
+			</div>
 		</div>
 		<div id="subs-embed">
 			<div class="off-canvas">
@@ -71,5 +112,15 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		document.querySelectorAll('.stream-link').forEach(link => {
+			link.addEventListener('click', event => {
+				document.querySelectorAll('.stream-link').forEach(link => {
+					link.classList.remove('is-active');
+				});
+				event.target.classList.add('is-active');
+			});
+		});
+	</script>
 </body>
 </html>
