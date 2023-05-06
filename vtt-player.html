@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>vtt player</title>
+	<style>
+		html, body {
+			margin: 0;
+			width: 100%;
+			height: 100%;
+		}
+		#player #video-el {
+			width: 100%;
+			max-width: 150vh;
+			aspect-ratio: 16 / 9;
+		}
+		#form {
+			padding: 1rem;
+		}
+		#form label {
+			display: block;
+			margin-bottom: 1rem;
+		}
+		#form label input {
+			margin-top: 0.5rem;
+			width: 100%;
+		}
+	</style>
+</head>
+<body>
+	<div id="player">
+
+	</div>
+	<form id="form">
+		<label>
+			Video URL
+			<input type="text" name="video">
+		</label>
+		<label>
+			Subtitle file
+			<input type="text" name="subs">
+		</label>
+		<button type="submit">Load</button>
+	</form>
+
+	<script>
+		function loadFromUrl() {
+			if (!location.hash.startsWith('#!')) {
+				return;
+			}
+
+			const params = {};
+			const parts = location.hash.slice(2).split('&');
+			parts.forEach(part => {
+				const [key, value] = part.split('=', 2);
+				params[key] = decodeURIComponent(value);
+			});
+
+			if (!params.video || !params.subs) {
+				return;
+			}
+
+			const playerEl = document.getElementById('player');
+			playerEl.innerHTML = '';
+
+			const videoEl = document.createElement('video');
+			videoEl.controls = true;
+			videoEl.id = 'video-el';
+
+			const sourceEl = document.createElement('source');
+			sourceEl.src = params.video;
+			videoEl.appendChild(sourceEl);
+
+			const trackEl = document.createElement('track');
+			trackEl.default = true;
+			trackEl.label = 'English';
+			trackEl.kind = 'subtitles';
+			trackEl.srclang = 'en';
+			trackEl.src = params.subs;
+			videoEl.appendChild(trackEl);
+
+			playerEl.appendChild(videoEl);
+			console.log('params', params);
+		}
+
+		document.addEventListener('hashchange', loadFromUrl);
+
+		document.getElementById('form').addEventListener('submit', event => {
+			event.preventDefault();
+			const video = event.target.elements.video.value;
+			const subs = event.target.elements.subs.value;
+
+			const url = `#!video=${encodeURIComponent(video)}&subs=${encodeURIComponent(subs)}`;
+			location.hash = url;
+		});
+		loadFromUrl();
+	</script>
+</body>
+</html>
