@@ -66,6 +66,7 @@
 			playerEl.innerHTML = '';
 
 			const videoEl = document.createElement('video');
+			videoEl.setAttribute('crossorigin', 'anonymous');
 			videoEl.controls = true;
 			videoEl.id = 'video-el';
 
@@ -82,6 +83,10 @@
 			videoEl.appendChild(trackEl);
 
 			playerEl.appendChild(videoEl);
+
+			const formEl = document.getElementById('form');
+			formEl.elements.video.value = params.video;
+			formEl.elements.subs.value = params.subs;
 		}
 
 		document.addEventListener('hashchange', loadFromUrl);
