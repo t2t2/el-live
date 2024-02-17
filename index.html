@@ -89,19 +89,15 @@
 	<div id="container">
 		<div id="player">
 			<div id="stream-embed">
-				<iframe id="stream-embed-iframe" name="stream-embed-iframe" class="embed" src="https://services.err.ee/live/video/eri11" frameborder="0" allow="fullscreen"></iframe>
-				<!--
-					Kui keegi err meeskonnast peaks siin olema juhuslikult uurimas,
-					1) Krt seda live embed urli on raske leida, lõpuks pidi üldse arvama
-					2) Millal 1080p50? (720p50 oleks juba okei komrpomiss, see on märgatav vahe)
-				-->
+				<iframe id="stream-embed-iframe" name="stream-embed-iframe" class="embed" src="https://www.youtube-nocookie.com/embed/s3cjyzuxkzc?autoplay=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 			</div>
 			<div id="stream-selector">
 				<p>Select stream:</p>
+				<a class="stream-link is-active" href="https://www.youtube-nocookie.com/embed/s3cjyzuxkzc?autoplay=1" target="stream-embed-iframe" title="In Estonian">ETV (🇪🇪)</a>
 				<a class="stream-link" href="https://services.err.ee/live/video/etv" target="stream-embed-iframe" title="In Estonian">ETV (🇪🇪)</a>
 				<a class="stream-link" href="https://services.err.ee/live/video/etv2" target="stream-embed-iframe" title="In Estonian Sign Language">ETV2 (🧏)</a>
 				<a class="stream-link" href="https://services.err.ee/live/video/etvpluss" target="stream-embed-iframe" title="In Russian">ETV+ (🇷🇺)</a>
-				<a class="stream-link is-active" href="https://services.err.ee/live/video/eri11" target="stream-embed-iframe" title="Jupiter stream (likely same as ETV)">Jupiter (🇪🇪🌖)</a>
+				<a class="stream-link" href="https://services.err.ee/live/video/eri11" target="stream-embed-iframe" title="Jupiter stream (likely same as ETV)">Jupiter (🇪🇪🌖)</a>
 				<div style="flex: 1"></div>
 				<p>If video gets replaced by image hit pause + play</p>
 			</div>
